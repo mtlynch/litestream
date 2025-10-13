@@ -174,9 +174,6 @@ Arguments:
 	-if-db-not-exists
 	    Returns exit code of 0 if the database already exists.
 
-	-if-replica-exists
-	    Returns exit code of 0 if no backups found.
-
 	-parallelism NUM
 	    Determines the number of WAL files downloaded in parallel.
 	    Defaults to `+strconv.Itoa(litestream.DefaultRestoreParallelism)+`.

@@ -235,7 +235,6 @@ func RestoreTool(configPath string) (mcp.Tool, server.ToolHandlerFunc) {
 		mcp.WithString("timestamp", mcp.Description("Restore to a specific point-in-time (RFC3339). Optional.")),
 		mcp.WithString("parallelism", mcp.Description("Number of WAL files to download in parallel. Optional.")),
 		mcp.WithBoolean("if_db_not_exists", mcp.Description("Return 0 if the database already exists. Optional.")),
-		mcp.WithBoolean("if_replica_exists", mcp.Description("Return 0 if no backups found. Optional.")),
 	)
 
 	return tool, func(ctx context.Context, req mcp.CallToolRequest) (*mcp.CallToolResult, error) {
@@ -265,9 +264,6 @@ func RestoreTool(configPath string) (mcp.Tool, server.ToolHandlerFunc) {
 		}
 		if ifDBNotExists, err := req.RequireBool("if_db_not_exists"); err == nil {
 			args = append(args, "-if-db-not-exists", strconv.FormatBool(ifDBNotExists))
-		}
-		if ifReplicaExists, err := req.RequireBool("if_replica_exists"); err == nil {
-			args = append(args, "-if-replica-exists", strconv.FormatBool(ifReplicaExists))
 		}
 		if path, err := req.RequireString("path"); err == nil {
 			args = append(args, path)
